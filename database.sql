@@ -2,7 +2,7 @@
 
 CREATE TABLE IF NOT EXISTS lexique
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         word VARCHAR(255) NOT NULL,
         def TEXT NOT NULL,
         img VARCHAR(255)
@@ -13,19 +13,19 @@ CREATE TABLE IF NOT EXISTS bio_article
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_user INT NOT NULL,
         nom_vulgaire VARCHAR(255) NOT NULL,
-        domain VARCHAR(255) NOT NULL,
-        kingdom VARCHAR(255) NOT NULL,
-        superphylum VARCHAR(255),
-        phylum VARCHAR(255) NOT NULL,
-        subphylum VARCHAR(255),
-        class VARCHAR(255) NOT NULL,
-        subclass VARCHAR(255),
-        superorder VARCHAR(255),
-        order VARCHAR(255) NOT NULL,
-        suborder VARCHAR(255),
-        family VARCHAR(255) NOT NULL,
-        genus VARCHAR(255) NOT NULL,
-        species VARCHAR(255) NOT NULL,
+        fk_id_domain INT NOT NULL,
+        fk_id_kingdom INT NOT NULL,
+        fk_id_superphylum INT,
+        fk_id_phylum INT NOT NULL,
+        fk_id_subphylum INT,
+        fk_id_class INT NOT NULL,
+        fk_id_subclass INT,
+        fk_id_superorder INT,
+        fk_id_order INT NOT NULL,
+        fk_id_suborder INT,
+        fk_id_family INT NOT NULL,
+        fk_id_genus INT NOT NULL,
+        fk_id_species INT NOT NULL,
         img VARCHAR(255),
         informations TEXT NOT NULL,
         lifestyle VARCHAR(255) NOT NULL,
@@ -35,7 +35,20 @@ CREATE TABLE IF NOT EXISTS bio_article
         autre TEXT,
         classification VARCHAR(255) NOT NULL,
         refs TEXT NOT NULL,
-        FOREIGN KEY (fk_id_user) references user(id) on delete cascade
+        FOREIGN KEY (fk_id_user) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_domain) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_kingdom) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_superphylum) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_phylum) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_subphylum) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_class) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_subclass) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_superorder) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_order) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_suborder) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_family) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_genus) references user(id) on delete cascade,
+        FOREIGN KEY (fk_id_species) references user(id) on delete cascade
     ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS user
@@ -50,16 +63,16 @@ CREATE TABLE IF NOT EXISTS user
 CREATE TABLE IF NOT EXISTS bio_domain
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-        domain_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL
     ) ENGINE=INNODB;    
 
 CREATE TABLE IF NOT EXISTS bio_subdomain
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_domain INT NOT NULL, 
-        subdomain_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_domain) references bio_domain(id) on delete cascade
@@ -67,9 +80,9 @@ CREATE TABLE IF NOT EXISTS bio_subdomain
 
 CREATE TABLE IF NOT EXISTS bio_kingdom
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_domain INT NOT NULL,
-        kingdom_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_domain) references bio_domain(id) on delete cascade
@@ -77,19 +90,39 @@ CREATE TABLE IF NOT EXISTS bio_kingdom
 
 CREATE TABLE IF NOT EXISTS bio_subkingdom
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        subkingdom_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
-    ) ENGINE=INNODB;    
+    ) ENGINE=INNODB;   
+
+CREATE TABLE IF NOT EXISTS bio_rameau
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_kingdom INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
+    ) ENGINE=INNODB; 
+
+CREATE TABLE IF NOT EXISTS bio_infrakingdom
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_kingdom INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
+    ) ENGINE=INNODB; 
 
 CREATE TABLE IF NOT EXISTS bio_superphylum
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        superphylum_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
@@ -97,9 +130,9 @@ CREATE TABLE IF NOT EXISTS bio_superphylum
 
 CREATE TABLE IF NOT EXISTS bio_phylum
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        phylum_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
@@ -107,19 +140,39 @@ CREATE TABLE IF NOT EXISTS bio_phylum
 
 CREATE TABLE IF NOT EXISTS bio_subphylum
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        subphylum_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
+    ) ENGINE=INNODB; 
+
+CREATE TABLE IF NOT EXISTS bio_infraphylum
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_phylum INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
     ) ENGINE=INNODB;    
 
+CREATE TABLE IF NOT EXISTS bio_microphylum
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_phylum INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
+    ) ENGINE=INNODB;   
+
 CREATE TABLE IF NOT EXISTS bio_superclass
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        class_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
@@ -127,9 +180,9 @@ CREATE TABLE IF NOT EXISTS bio_superclass
 
 CREATE TABLE IF NOT EXISTS bio_class
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        class_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
@@ -137,9 +190,19 @@ CREATE TABLE IF NOT EXISTS bio_class
 
 CREATE TABLE IF NOT EXISTS bio_subclass
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_class INT NOT NULL,
-        subclass_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_infraclass
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_class INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
@@ -147,9 +210,9 @@ CREATE TABLE IF NOT EXISTS bio_subclass
 
 CREATE TABLE IF NOT EXISTS bio_superorder
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_class INT NOT NULL,
-        superorder_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
@@ -157,9 +220,9 @@ CREATE TABLE IF NOT EXISTS bio_superorder
 
 CREATE TABLE IF NOT EXISTS bio_order
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_class INT NOT NULL,
-        order_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
@@ -167,42 +230,192 @@ CREATE TABLE IF NOT EXISTS bio_order
 
 CREATE TABLE IF NOT EXISTS bio_suborder
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_order INT NOT NULL,
-        suborder_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
-    ) ENGINE=INNODB;    
+    ) ENGINE=INNODB; 
+
+CREATE TABLE IF NOT EXISTS bio_infraorder
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_order INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
+    ) ENGINE=INNODB;     
+
+CREATE TABLE IF NOT EXISTS bio_microorder
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_order INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
+    ) ENGINE=INNODB;  
+
+CREATE TABLE IF NOT EXISTS bio_superfamily
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_order INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
+    ) ENGINE=INNODB;  
 
 CREATE TABLE IF NOT EXISTS bio_family 
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_order INT NOT NULL,
-        family_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
     ) ENGINE=INNODB;    
 
+CREATE TABLE IF NOT EXISTS bio_subfamily
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_family INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_tribe
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_family INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_subtribe
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_family INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
+    ) ENGINE=INNODB;        
+
 CREATE TABLE IF NOT EXISTS bio_genus
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_family INT NOT NULL,
-        genus_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
     ) ENGINE=INNODB;    
 
-CREATE TABLE IF NOT EXISTS bio_species
+CREATE TABLE IF NOT EXISTS bio_subgenus
     (
-        id INT PRIMARY KEY NOT NULL,
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_genus INT NOT NULL,
-        species_name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_section
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_genus INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_subsection
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_genus INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_species
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_genus INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_subspecies
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_species INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_subspecies
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_species INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_variety
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_species INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_subvariety
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_species INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_form
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_species INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
+    ) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS bio_subform
+    (
+        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        fk_id_species INT NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        identification TEXT NOT NULL,
+        refs TEXT NOT NULL,
+        FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
     ) ENGINE=INNODB;
 
 INSERT INTO bio_domain (domain_name, identification, refs) VALUES

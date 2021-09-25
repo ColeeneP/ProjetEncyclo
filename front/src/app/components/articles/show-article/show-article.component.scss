@@ -1,0 +1,19 @@
+.large-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 20px auto;
+    padding: 16px;
+    border-radius: 8px;
+    width: 80%;
+}
+
+img {
+    width: 50%;
+}
+
+.resume {
+    display: flex;
+    flex-flow: column wrap;
+    font-size: 18px;
+}

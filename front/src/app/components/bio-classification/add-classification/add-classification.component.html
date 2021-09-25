@@ -1,0 +1,27 @@
+<form class="form" [formGroup]="classificationForm">
+    <div class="formGroup">
+        <mat-form-field appearance="fill">
+            <mat-label>Select</mat-label>
+            <mat-select class="formControl" formControlName="name" required>
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your name</mat-label>
+            <input matInput placeholder="identification" class="formControl" formControlName="identification" required>
+        </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <textarea matInput  class="formControl" formControlName="refs" required></textarea>
+        </mat-form-field>
+    </div>
+
+    <button mat-raised-button id='submit' type="submit" (click)="onSubmit()">S'inscrire</button>
+</form>

@@ -1,0 +1,20 @@
+form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    margin: 100px auto 0px auto;
+    max-width: 1200px;
+
+        .formControl {
+            height: 20px;
+        }
+
+        mat-form-field {
+            width: 100%;
+            padding: 10px 0px;
+        }
+
+        textarea {
+            resize: none;
+        }
+}
