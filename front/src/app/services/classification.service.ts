@@ -16,8 +16,8 @@ export class ClassificationService {
 
   constructor(private http: HttpClient) { }
 
-  createClassification(creatingRequest: createClassification):Observable<any>{
-    return this.http.post(`${this.apiUrl}/classification/createClassification`, creatingRequest);
+  createClassification(category: string, creatingRequest: createClassification):Observable<any>{
+    return this.http.post(`${this.apiUrl}/classification/createClassification` + category, creatingRequest);
   }
   
   getOneClassification(id: string): Observable<any>{

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +25,7 @@ import { AddClassificationComponent } from './components/bio-classification/add-
 import { ModifyClassificationComponent } from './components/bio-classification/modify-classification/modify-classification.component';
 import { ShowLexiqueComponent } from './components/lexique/show-lexique/show-lexique.component';
 import { AddLexiqueWordComponent } from './components/lexique/add-lexique-word/add-lexique-word.component';
+import { AccueilComponent } from './components/accueil/accueil.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,11 @@ import { AddLexiqueWordComponent } from './components/lexique/add-lexique-word/a
     AddClassificationComponent,
     ModifyClassificationComponent,
     ShowLexiqueComponent,
-    AddLexiqueWordComponent
+    AddLexiqueWordComponent,
+    AccueilComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

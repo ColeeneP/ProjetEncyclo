@@ -1,0 +1,16 @@
+form {
+    width: 80%;
+    margin: auto;
+
+    mat-form-field.mat-form-field {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    textarea {
+        resize: none;
+    }
+}

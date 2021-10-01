@@ -11,15 +11,18 @@
             <mat-icon>login</mat-icon>
             <span>Connexion</span>
         </button>
-
-        <button mat-menu-item *ngIf='!auth'>
-        <mat-icon>account_circle</mat-icon>
-        <span>Mon profil</span>
+        <button mat-menu-item *ngIf='!auth' routerLink="addClassificationComponent">
+          <mat-icon>auto_stories</mat-icon>
+          <span>Ajouter une classification</span>
         </button>
         <button mat-menu-item routerLink="showArticleComponent">
         <mat-icon>auto_stories</mat-icon>
         <span>Articles</span>
         </button>
+        <button mat-menu-item *ngIf='!auth'>
+        <mat-icon>account_circle</mat-icon>
+        <span>Mon profil</span>
+        </button>        
         <button mat-menu-item>
         <mat-icon>logout</mat-icon>
         <span>Deconnexion</span>

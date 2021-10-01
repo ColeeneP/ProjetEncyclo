@@ -12,58 +12,100 @@ CREATE TABLE IF NOT EXISTS bio_article
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_user INT NOT NULL,
-        nom_vulgaire VARCHAR(255) NOT NULL,
+        vulgary_name VARCHAR(255) NOT NULL,
         fk_id_domain INT NOT NULL,
+        fk_id_subdomain INT,
         fk_id_kingdom INT NOT NULL,
+        fk_id_subkingdom INT,
+        fk_id_rameau INT,
+        fk_id_infrakingdom INT,
         fk_id_superphylum INT,
         fk_id_phylum INT NOT NULL,
         fk_id_subphylum INT,
+        fk_id_infraphylum INT,
+        fk_id_microphylum INT,
+        fk_id_superclass INT,
         fk_id_class INT NOT NULL,
         fk_id_subclass INT,
+        fk_id_infraclass INT,
         fk_id_superorder INT,
         fk_id_order INT NOT NULL,
         fk_id_suborder INT,
+        fk_id_infraorder INT,
+        fk_id_microorder INT,
+        fk_id_superfamily INT,
         fk_id_family INT NOT NULL,
+        fk_id_subfamily INT,
+        fk_id_tribe INT,
+        fk_id_subtribe INT,
         fk_id_genus INT NOT NULL,
+        fk_id_subgenus INT,
+        fk_id_section INT,
+        fk_id_subsection INT,
         fk_id_species INT NOT NULL,
+        fk_id_subspecies INT,
+        fk_id_variety INT,
+        fk_id_subvariety INT,
+        fk_id_form INT,
+        fk_id_subform INT,
         img VARCHAR(255),
-        informations TEXT NOT NULL,
+        article_description TEXT NOT NULL,
         lifestyle VARCHAR(255) NOT NULL,
         biotop VARCHAR(255) NOT NULL,
         alimentation VARCHAR(255) NOT NULL,
         reproduction VARCHAR(255) NOT NULL,
-        autre TEXT,
-        classification VARCHAR(255) NOT NULL,
+        autres TEXT,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_user) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_domain) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_kingdom) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_superphylum) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_phylum) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_subphylum) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_class) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_subclass) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_superorder) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_order) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_suborder) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_family) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_genus) references user(id) on delete cascade,
-        FOREIGN KEY (fk_id_species) references user(id) on delete cascade
+        FOREIGN KEY (fk_id_domain) references bio_domain(id) on delete cascade,
+        FOREIGN KEY (fk_id_subdomain) references bio_subdomain(id) on delete cascade,
+        FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade,
+        FOREIGN KEY (fk_id_subkingdom) references bio_subkingdom(id) on delete cascade,
+        FOREIGN KEY (fk_id_rameau) references bio_rameau(id) on delete cascade,
+        FOREIGN KEY (fk_id_infrakingdom) references bio_infrakingdom(id) on delete cascade,
+        FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade,
+        FOREIGN KEY (fk_id_subphylum) references bio_subphylum(id) on delete cascade,
+        FOREIGN KEY (fk_id_infraphylum) references bio_infraphylum(id) on delete cascade,
+        FOREIGN KEY (fk_id_microphylum) references bio_microphylum(id) on delete cascade,
+        FOREIGN KEY (fk_id_superclass) references bio_superclass(id) on delete cascade,
+        FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade,
+        FOREIGN KEY (fk_id_subclass) references bio_subclass(id) on delete cascade,
+        FOREIGN KEY (fk_id_infraclass) references bio_infraclass(id) on delete cascade,
+        FOREIGN KEY (fk_id_superorder) references bio_superorder(id) on delete cascade,
+        FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade,
+        FOREIGN KEY (fk_id_suborder) references bio_superorder(id) on delete cascade,
+        FOREIGN KEY (fk_id_infraorder) references bio_infraorder(id) on delete cascade,
+        FOREIGN KEY (fk_id_microorder) references bio_microorder(id) on delete cascade,
+        FOREIGN KEY (fk_id_superfamily) references bio_superfamily(id) on delete cascade,
+        FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade,
+        FOREIGN KEY (fk_id_subfamily) references bio_subfamily(id) on delete cascade,
+        FOREIGN KEY (fk_id_tribe) references bio_tribe(id) on delete cascade,
+        FOREIGN KEY (fk_id_subtribe) references bio_subtribe(id) on delete cascade,
+        FOREIGN KEY (fk_id_genus) references bio_genus(id) on delete cascade,
+        FOREIGN KEY (fk_id_subgenus) references bio_subgenus(id) on delete cascade,
+        FOREIGN KEY (fk_id_section) references bio_section(id) on delete cascade,
+        FOREIGN KEY (fk_id_subsection) references bio_subsection(id) on delete cascade,
+        FOREIGN KEY (fk_id_species) references bio_species(id) on delete cascade,
+        FOREIGN KEY (fk_id_subspecies) references bio_subspecies(id) on delete cascade,
+        FOREIGN KEY (fk_id_variety) references bio_variety(id) on delete cascade,
+        FOREIGN KEY (fk_id_subvariety) references bio_subvariety(id) on delete cascade,
+        FOREIGN KEY (fk_id_form) references bio_form(id) on delete cascade,
+        FOREIGN KEY (fk_id_subform) references bio_subform(id) on delete cascade
     ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS user
     (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         firstname VARCHAR(20) NOT NULL,
-        name VARCHAR(20) NOT NULL,
+        user_name VARCHAR(20) NOT NULL,
         email VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL
-    )
+    ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS bio_domain
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-        name VARCHAR(255) NOT NULL,
+        domain_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL
     ) ENGINE=INNODB;    
@@ -72,7 +114,7 @@ CREATE TABLE IF NOT EXISTS bio_subdomain
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_domain INT NOT NULL, 
-        name VARCHAR(255) NOT NULL,
+        subdomain_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_domain) references bio_domain(id) on delete cascade
@@ -82,7 +124,7 @@ CREATE TABLE IF NOT EXISTS bio_kingdom
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_domain INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        kingdom_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_domain) references bio_domain(id) on delete cascade
@@ -92,7 +134,7 @@ CREATE TABLE IF NOT EXISTS bio_subkingdom
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subkingdom_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
@@ -102,7 +144,7 @@ CREATE TABLE IF NOT EXISTS bio_rameau
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        rameau_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
@@ -112,7 +154,7 @@ CREATE TABLE IF NOT EXISTS bio_infrakingdom
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        infrakingdom_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
@@ -122,7 +164,7 @@ CREATE TABLE IF NOT EXISTS bio_superphylum
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        superphylum_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
@@ -132,7 +174,7 @@ CREATE TABLE IF NOT EXISTS bio_phylum
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_kingdom INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        phylum_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_kingdom) references bio_kingdom(id) on delete cascade
@@ -142,7 +184,7 @@ CREATE TABLE IF NOT EXISTS bio_subphylum
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subphylum_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
@@ -152,7 +194,7 @@ CREATE TABLE IF NOT EXISTS bio_infraphylum
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        infraphylum_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
@@ -162,7 +204,7 @@ CREATE TABLE IF NOT EXISTS bio_microphylum
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        microphylum_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
@@ -172,7 +214,7 @@ CREATE TABLE IF NOT EXISTS bio_superclass
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        superclass_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
@@ -182,7 +224,7 @@ CREATE TABLE IF NOT EXISTS bio_class
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_phylum INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        class_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_phylum) references bio_phylum(id) on delete cascade
@@ -192,7 +234,7 @@ CREATE TABLE IF NOT EXISTS bio_subclass
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_class INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subclass_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
@@ -202,7 +244,7 @@ CREATE TABLE IF NOT EXISTS bio_infraclass
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_class INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        infraclass_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
@@ -212,7 +254,7 @@ CREATE TABLE IF NOT EXISTS bio_superorder
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_class INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        superorder_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
@@ -222,7 +264,7 @@ CREATE TABLE IF NOT EXISTS bio_order
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_class INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        order_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_class) references bio_class(id) on delete cascade
@@ -232,7 +274,7 @@ CREATE TABLE IF NOT EXISTS bio_suborder
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_order INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        suborder_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
@@ -242,7 +284,7 @@ CREATE TABLE IF NOT EXISTS bio_infraorder
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_order INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        infraorder_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
@@ -252,7 +294,7 @@ CREATE TABLE IF NOT EXISTS bio_microorder
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_order INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        microorder_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
@@ -262,7 +304,7 @@ CREATE TABLE IF NOT EXISTS bio_superfamily
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_order INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        superfamily_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
@@ -272,7 +314,7 @@ CREATE TABLE IF NOT EXISTS bio_family
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_order INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        family_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_order) references bio_order(id) on delete cascade
@@ -282,7 +324,7 @@ CREATE TABLE IF NOT EXISTS bio_subfamily
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_family INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subfamily_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
@@ -292,7 +334,7 @@ CREATE TABLE IF NOT EXISTS bio_tribe
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_family INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        tribe_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
@@ -302,7 +344,7 @@ CREATE TABLE IF NOT EXISTS bio_subtribe
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_family INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subtribe_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
@@ -312,7 +354,7 @@ CREATE TABLE IF NOT EXISTS bio_genus
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_family INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        genus_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_family) references bio_family(id) on delete cascade
@@ -322,7 +364,7 @@ CREATE TABLE IF NOT EXISTS bio_subgenus
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_genus INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subgenus_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
@@ -332,7 +374,7 @@ CREATE TABLE IF NOT EXISTS bio_section
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_genus INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        section_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
@@ -342,7 +384,7 @@ CREATE TABLE IF NOT EXISTS bio_subsection
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_genus INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subsection_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
@@ -352,7 +394,7 @@ CREATE TABLE IF NOT EXISTS bio_species
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_genus INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        species_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_genus) REFERENCES bio_genus(id) on delete cascade
@@ -362,17 +404,7 @@ CREATE TABLE IF NOT EXISTS bio_subspecies
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_species INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
-        identification TEXT NOT NULL,
-        refs TEXT NOT NULL,
-        FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
-    ) ENGINE=INNODB;
-
-CREATE TABLE IF NOT EXISTS bio_subspecies
-    (
-        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-        fk_id_species INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subspecies_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
@@ -382,7 +414,7 @@ CREATE TABLE IF NOT EXISTS bio_variety
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_species INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        variety_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
@@ -392,7 +424,7 @@ CREATE TABLE IF NOT EXISTS bio_subvariety
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_species INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subvariety_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
@@ -402,7 +434,7 @@ CREATE TABLE IF NOT EXISTS bio_form
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_species INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        form_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
@@ -412,7 +444,7 @@ CREATE TABLE IF NOT EXISTS bio_subform
     (
         id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
         fk_id_species INT NOT NULL,
-        name VARCHAR(255) NOT NULL,
+        subform_name VARCHAR(255) NOT NULL,
         identification TEXT NOT NULL,
         refs TEXT NOT NULL,
         FOREIGN KEY (fk_id_species) REFERENCES bio_species(id) on delete cascade
@@ -436,7 +468,7 @@ INSERT INTO bio_subkingdom (id, subkingdom_name, fk_id_kingdom, identification, 
     (1, 'Bilatériens', 1, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     (2, 'Radiaires', 1, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
-INSERT INTO bio_superphylum (superphylum_name, identification, refs) VALUES
+INSERT INTO bio_superphylum (superphylum_name, fk_id_kingdom, identification, refs) VALUES
     ('Deutérostomiens', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
 INSERT INTO bio_phylum (id, phylum_name, fk_id_kingdom, identification, refs) VALUES
@@ -462,13 +494,13 @@ INSERT INTO bio_phylum (id, phylum_name, fk_id_kingdom, identification, refs) VA
     (20, 'Xénacélomorphes', 1, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     (21, 'Zygomycètes', 2, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
-INSERT INTO bio_subphylum (subphylum_name, identification, refs) VALUES
+INSERT INTO bio_subphylum (subphylum_name, fk_id_phylum, identification, refs) VALUES
     ('Céphalochordés', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Craniés', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Tuniciers', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Vertébrés', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
-INSERT INTO bio_superclass (superclass_name, identification, refs) VALUES 
+INSERT INTO bio_superclass (superclass_name, fk_id_phylum, identification, refs) VALUES 
     ('Tetrapoda', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Ostéichthyens', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
@@ -480,12 +512,12 @@ INSERT INTO bio_class (id, class_name, fk_id_phylum, identification, refs) VALUE
     (5, 'Reptiles', 9, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     (6, 'Sarcoptérygiens', 9, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
-INSERT INTO bio_subclass (subclass_name, identification, refs) VALUES 
+INSERT INTO bio_subclass (subclass_name, fk_id_class, identification, refs) VALUES 
     ('Chilognatha', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Thecostraca', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Theria', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
-INSERT INTO bio_superorder (superorder_name, identification, refs) VALUES 
+INSERT INTO bio_superorder (superorder_name, fk_id_class, identification, refs) VALUES 
     ('Dipneustes', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Euarchontoglires', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Parareptilia', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
@@ -496,7 +528,7 @@ INSERT INTO bio_order (id, order_name, fk_id_class, identification, refs) VALUES
     (3, 'Primates', 4, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     (4, 'Procolophonomorpha', 5, '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
 
-INSERT INTO bio_suborder (suborder_name, identification, refs) VALUES 
+INSERT INTO bio_suborder (suborder_name, fk_id_order, identification, refs) VALUES 
     ('Caniformes', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Haplorrhini', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}'),
     ('Procolophonia', '{1, 2, 3, 4, "text"}', '{"ref1", "ref2"}');
