@@ -8,17 +8,17 @@ const decodedToken = require("../middleware/auth.js");
  * @param {new database line} res 
  */
 // Création d'une classification
-        exports.createClassification = (req, res) => {
-            const message = {
-            name: req.body.name,
-            taxon: req.body.taxon,
-            identification: req.body.identification,
-            refs: req.body.refs
-            }
-                Model.classification.create(...message)
-                .then((res) => res.status(201).json({ message: 'Classification créée !' }))
-                .catch((error) => {res.status(400).json({ message: error.message });})
-            };
+  exports.createClassification = (req, res) => {
+      const message = {
+      name: req.body.name,
+      taxon: req.body.taxon,
+      identification: req.body.identification,
+      refs: req.body.refs
+      }
+          Model.classification.create(...message)
+          .then(() => res.status(201).json({ message: 'Classification créée !' }))
+          .catch((error) => {res.status(400).json({ message: error.message });})
+      };
 
 /**
  * Function to get a specific classification (bio section)
@@ -30,6 +30,19 @@ const decodedToken = require("../middleware/auth.js");
     Model.classification.findOne({
       attributes: ['id', 'taxon', 'name', 'identification', 'refs'],
       where: {id: id},
+    })
+    .then((things) => {res.status(200).json(things)})
+    .catch((error) => {res.status(400).json({error: error.message})});
+  };
+
+/**
+ * Function to get all classifications (bio section)
+ * @param {new database line} res 
+ */
+  exports.getAllClassifications = (res) => {
+    Model.classification.findAll({
+      order: [["name", "ASC"]],
+      attributes: ['id', 'taxon', 'name'],
     })
     .then((things) => {res.status(200).json(things)})
     .catch((error) => {res.status(400).json({error: error.message})});
@@ -51,6 +64,6 @@ exports.modifyClassification = (req, res) => {
     refs: req.body.refs
   })
       Model.classification.update(...message, {where: {id: id}})
-      .then((res) => res.status(200).json({ message: 'Modification effectuée !' }))
+      .then(() => res.status(200).json({ message: 'Modification effectuée !' }))
       .catch((error) => {res.status(400).json({ message: error.message });})
   };
