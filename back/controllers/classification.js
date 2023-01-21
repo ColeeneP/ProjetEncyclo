@@ -11,6 +11,7 @@ const decodedToken = require("../middleware/auth.js");
         exports.createClassification = (req, res) => {
             const message = {
             name: req.body.name,
+            taxon: req.body.taxon,
             identification: req.body.identification,
             refs: req.body.refs
             }
@@ -155,119 +156,12 @@ exports.modifyClassification = (req, res) => {
   const id = Number(req.params.id);  
   const message = ({
     id: id,
+    taxon: req.body.taxon,
     name: req.body.name,
     identification: req.body.identification,
     refs: req.body.refs
   })
-  try {
-    if (req.body.name == "domain") {
-      Model.bio_domain.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Domaine modifié !' })
-    } else if (req.body.name == "subdomain") {
-      Model.bio_subdomain.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-domaine modifié !' })
-    } else if (req.body.name == "kingdom") {
-      Model.bio_kingdom.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Règne modifié !' })
-    } else if (req.body.name == "subkingdom") {
-      Model.bio_subkingdom.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-règne modifié !' })
-    } else if (req.body.name == "rameau") {
-      Model.bio_rameau.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Rameau modifié !' })
-    } else if (req.body.name == "infrakingdom") {
-      Model.bio_infrakingdom.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Infra-règne modifié !' })
-    } else if (req.body.name == "superphylum") {
-      Model.bio_superphylum.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Super-embranchement modifié !' })
-    } else if (req.body.name == "phylum") {
-      Model.bio_phylum.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Embranchement modifié !' })
-    } else if (req.body.name == "subphylum") {
-      Model.bio_subphylum.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-embranchement modifié !' })
-    } else if (req.body.name == "infraphylum") {
-      Model.bio_infraphylum.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Infra-embranchement modifié !' })
-    } else if (req.body.name == "microphylum") {
-      Model.bio_microphylum.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Micro-embranchement modifié !' })
-    } else if (req.body.name == "superclass") {
-      Model.bio_superclass.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Super-classe modifiée !' })
-    } else if (req.body.name == "class") {
-      Model.bio_class.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Classe modifiée !' })
-    } else if (req.body.name == "subclass") {
-      Model.bio_subclass.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-classe modifiée !' })
-    } else if (req.body.name == "infraclass") {
-      Model.bio_infraclass.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Infra-classe modifiée !' })
-    } else if (req.body.name == "superorder") {
-      Model.bio_superorder.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Super-ordre modifié !' })
-    } else if (req.body.name == "order") {
-      Model.bio_order.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Ordre modifié !' })
-    } else if (req.body.name == "suborder") {
-      Model.bio_suborder.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-ordre modifié !' })
-    } else if (req.body.name == "infraorder") {
-      Model.bio_infraorder.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Infra-ordre modifié !' })
-    } else if (req.body.name == "microorder") {
-      Model.bio_microorder.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Micro-ordre modifié !' })
-    } else if (req.body.name == "superfamily") {
-      Model.bio_superfamily.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Super-famille modifiée !' })
-    } else if (req.body.name == "family") {
-      Model.bio_family.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Family modifiée !' })
-    } else if (req.body.name == "subfamily") {
-      Model.bio_subfamily.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-famille modifiée !' })
-    } else if (req.body.name == "tribe") {
-      Model.bio_tribe.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Tribu modifiée !' })
-    } else if (req.body.name == "subtribe") {
-      Model.bio_subtribe.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-tribu modifiée !' })
-    } else if (req.body.name == "genus") {
-      Model.bio_genus.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Genre modifié !' })
-    } else if (req.body.name == "subgenus") {
-      Model.bio_subgenus.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-genre modifié !' })
-    } else if (req.body.name == "section") {
-      Model.bio_section.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Section modifiée !' })
-    } else if (req.body.name == "subsection") {
-      Model.bio_subsection.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-section modifiée !' })
-    } else if (req.body.name == "species") {
-      Model.bio_species.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Espèce modifiée !' })
-    } else if (req.body.name == "subspecies") {
-      Model.bio_subspecies.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-espèce modifiée !' })
-    } else if (req.body.name == "variety") {
-      Model.bio_variety.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Variété modifiée !' })
-    } else if (req.body.name == "subvariety") {
-      Model.bio_subvariety.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-variétée modifiée !' })
-    } else if (req.body.name == "form") {
-      Model.bio_form.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Forme modifiée !' })
-    } else if (req.body.name == "subform") {
-      Model.bio_subform.update(...message, {where: {id: id}})
-      res.status(200).json({ message: 'Sous-forme modifiée !' })
-    }
-  } catch (domain) {
-    (error) => {
-      res.status(400).json({ message: error.message });}
-    }
+      Model.classification.update(...message, {where: {id: id}})
+      .then((res) => res.status(200).json({ message: 'Modification effectuée !' }))
+      .catch((error) => {res.status(400).json({ message: error.message });})
   };
