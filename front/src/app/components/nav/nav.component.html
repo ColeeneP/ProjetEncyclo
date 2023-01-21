@@ -3,15 +3,15 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngIf='!auth' routerLink="registerComponent">
+        <button mat-menu-item *ngIf='auth' routerLink="registerComponent">
             <mat-icon>add</mat-icon>
             <span>Inscription</span>
         </button>
-        <button mat-menu-item *ngIf='!auth' routerLink="loginComponent">
+        <button mat-menu-item *ngIf='auth' routerLink="loginComponent">
             <mat-icon>login</mat-icon>
             <span>Connexion</span>
         </button>
-        <button mat-menu-item *ngIf='!auth' routerLink="addClassificationComponent">
+        <button mat-menu-item *ngIf='auth' routerLink="addClassificationComponent">
           <mat-icon>auto_stories</mat-icon>
           <span>Ajouter une classification</span>
         </button>

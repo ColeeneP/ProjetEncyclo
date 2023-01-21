@@ -1,0 +1,93 @@
+<!-- <form class="form" [formGroup]="classificationForm">
+    <div class="formGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>Sélectionner le domaine</mat-label>
+            <mat-select class="formControl" formControlName="domain" required>
+                <mat-option *ngFor="let domains of domain" [value]="domains">{{domains}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>Sélectionner le sous-domaine</mat-label>
+            <mat-select class="formControl" formControlName="subdomain" required>
+                <mat-option *ngIf="domain.value.valid" *ngFor="let subdomains of subdomain" [value]="subdomains">{{subdomains}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>Sélectionner le règne</mat-label>
+            <mat-select class="formControl" formControlName="kingdom" required>
+                <mat-option *ngIf="domain.value.valid" *ngFor="let kingdoms of kingdom" [value]="kingdoms">{{kingdoms}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>Sélectionner le sous-règne</mat-label>
+            <mat-select class="formControl" formControlName="subkingdom" required>
+                <mat-option *ngIf="kingdom.value.valid" *ngFor="let subkingdoms of subkingdom" [value]="subkingdoms">{{subkingdoms}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <mat-option value="subkingdom">Sous-règne</mat-option>
+    <mat-option value="rameau">Sous-rameau</mat-option>
+    <mat-option value="infrakingdom">Infra-règne</mat-option>
+    <mat-option value="superphylum">Super-embranchement</mat-option>
+    <mat-option value="phylum">Embranchement</mat-option>
+    <mat-option value="subphylum">Sous-embranchement</mat-option>
+    <mat-option value="infraphylum">Infra-embranchement</mat-option>
+    <mat-option value="microphylum">Micro-embranchement</mat-option>
+    <mat-option value="superclass">Super-classe</mat-option>
+    <mat-option value="class">Classe</mat-option>
+    <mat-option value="subclass">Sous-classe</mat-option>
+    <mat-option value="infraclass">Infra-classe</mat-option>
+    <mat-option value="superorder">Super-ordre</mat-option>
+    <mat-option value="order">Ordre</mat-option>
+    <mat-option value="suborder">Sous-ordre</mat-option>
+    <mat-option value="infraorder">Infra-ordre</mat-option>
+    <mat-option value="microorder">Micro-ordre</mat-option>
+    <mat-option value="superfamily">Super-famille</mat-option>
+    <mat-option value="family">Famille</mat-option>
+    <mat-option value="subfamily">Sous-famille</mat-option>
+    <mat-option value="tribe">Tribu</mat-option>
+    <mat-option value="subtribe">Sous-tribu</mat-option>
+    <mat-option value="genus">Genre</mat-option>
+    <mat-option value="subgenus">Sous-genre</mat-option>
+    <mat-option value="section">Section</mat-option>
+    <mat-option value="subsection">Sous-section</mat-option>
+    <mat-option value="species">Espèce</mat-option>
+    <mat-option value="subspecies">Sous-espèce</mat-option>
+    <mat-option value="variety">Variété</mat-option>
+    <mat-option value="subvariety">Sous-variété</mat-option>
+    <mat-option value="form">Forme</mat-option>
+    <mat-option value="subform">Sous-forme</mat-option>
+
+    <div class="formGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>Nom de la nouvelle classification</mat-label>
+            <input matInput placeholder="name" class="formControl" formControlName="name" required>
+        </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>Spécificités de la nouvelle classification</mat-label>
+            <textarea matInput placeholder="identification" class="formControl" formControlName="identification" required></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="formGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>Références scientifiques</mat-label>
+            <textarea matInput class="formControl" formControlName="refs" required></textarea>
+        </mat-form-field>
+    </div>
+
+    <button mat-raised-button id='submit' type="submit" (click)="onSubmit()">Créer</button>
+</form> -->

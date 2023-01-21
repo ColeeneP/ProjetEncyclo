@@ -134,8 +134,8 @@ const decodedToken = require("../middleware/auth.js");
       where: {id: id},
       include: [{
         model: Model.bio_domain,
-        attributes: ['id', 'name', 'identification', 'refs'],
-        as: 'fk_id_domain_bio_domain'
+        as: 'fk_id_domain_bio_domain',        
+        attributes: ['id', 'name', 'identification', 'refs']
       }]})
     .then((things) => {
       console.log(things);

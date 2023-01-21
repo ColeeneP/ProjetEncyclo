@@ -47,8 +47,12 @@ exports.getAllArticles = (req, res) => {
   exports.getOneArticle = (req, res) => {
     const id = Number(req.params.id);
     Model.Article.findOne({
-      attributes: ['id', 'attachment'],
-      where: {id: id}})
+      where: {id: id},
+      include : [{
+        model: Model.bio_class,
+        as: ''
+      }]
+    })
     .then((things) => {
       console.log(things);
       res.status(200).json(things);

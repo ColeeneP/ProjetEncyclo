@@ -1,21 +1,21 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('bio_subdomain', {
+  return sequelize.define('bio_section', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    fk_id_domain: {
+    fk_id_genus: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'bio_domain',
+        model: 'bio_genus',
         key: 'id'
       }
     },
-    subdomain_name: {
+    section_name: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'bio_subdomain',
+    tableName: 'bio_section',
     timestamps: false,
     indexes: [
       {
@@ -41,10 +41,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_id_domain",
+        name: "fk_id_genus",
         using: "BTREE",
         fields: [
-          { name: "fk_id_domain" },
+          { name: "fk_id_genus" },
         ]
       },
     ]

@@ -1,35 +1,35 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('bio_subdomain', {
+  return sequelize.define('user', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    fk_id_domain: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'bio_domain',
-        key: 'id'
-      }
+    user_firstname: {
+      type: DataTypes.STRING(20),
+      allowNull: false
     },
-    subdomain_name: {
+    user_lastname: {
+      type: DataTypes.STRING(20),
+      allowNull: false
+    },
+    email: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    identification: {
-      type: DataTypes.TEXT,
+    password: {
+      type: DataTypes.STRING(255),
       allowNull: false
     },
-    refs: {
-      type: DataTypes.TEXT,
-      allowNull: false
+    job: {
+      type: DataTypes.STRING(50),
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'bio_subdomain',
+    tableName: 'user',
     timestamps: false,
     indexes: [
       {
@@ -38,13 +38,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "fk_id_domain",
-        using: "BTREE",
-        fields: [
-          { name: "fk_id_domain" },
         ]
       },
     ]

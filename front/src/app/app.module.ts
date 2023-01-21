@@ -26,6 +26,7 @@ import { ModifyClassificationComponent } from './components/bio-classification/m
 import { ShowLexiqueComponent } from './components/lexique/show-lexique/show-lexique.component';
 import { AddLexiqueWordComponent } from './components/lexique/add-lexique-word/add-lexique-word.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
+import { CreateArticleComponent } from './components/articles/create-article/create-article.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AccueilComponent } from './components/accueil/accueil.component';
     ModifyClassificationComponent,
     ShowLexiqueComponent,
     AddLexiqueWordComponent,
-    AccueilComponent
+    AccueilComponent,
+    CreateArticleComponent
   ],
   imports: [
     HttpClientModule,
