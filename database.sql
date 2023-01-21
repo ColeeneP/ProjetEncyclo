@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS taxon (
 
 CREATE TABLE IF NOT EXISTS classification (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    taxon VARCHAR(50),
+    taxon VARCHAR(50) NOT NULL,
     FOREIGN KEY (taxon) REFERENCES taxon(id) on delete cascade,
     name VARCHAR(50),
     identification TEXT,
@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS bio_article (
     alimentation VARCHAR(255) NOT NULL,
     reproduction VARCHAR(255) NOT NULL,
     autres TEXT,
-    refs TEXT NOT NULL,
-    createdAt DATETIME,
-    createdBy user_id INT, FOREIGN KEY (user_id) REFERENCES user(id),
+    refs TEXT,
+    createdAt DATETIME NOT NULL,
+    createdBy user_id INT NOT NULL, FOREIGN KEY (user_id) REFERENCES user(id),
     modifiedAt DATETIME,
     modifiedBy user_id INT, FOREIGN KEY (user_id) REFERENCES user(id)
 ) ENGINE=INNODB;

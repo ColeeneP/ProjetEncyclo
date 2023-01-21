@@ -1,35 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('bio_subdomain', {
+  return sequelize.define('classification', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    fk_id_domain: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'bio_domain',
-        key: 'id'
-      }
+    taxon: {
+      type: DataTypes.STRING(50),
+      allowNull: false
     },
-    subdomain_name: {
-      type: DataTypes.STRING(255),
+    name: {
+      type: DataTypes.STRING(50),
       allowNull: false
     },
     identification: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     refs: {
-      type: DataTypes.TEXT,
-      allowNull: false
+        type: DataTypes.TEXT,
+        allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'bio_subdomain',
+    tableName: 'classification',
     timestamps: false,
     indexes: [
       {
@@ -41,10 +37,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_id_domain",
+        name: "taxon",
         using: "BTREE",
         fields: [
-          { name: "fk_id_domain" },
+          { name: "taxon" },
         ]
       },
     ]

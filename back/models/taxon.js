@@ -1,27 +1,14 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('bio_domain', {
+  return sequelize.define('taxon', {
     id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: false,
       primaryKey: true
-    },
-    domain_name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    identification: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    refs: {
-      type: DataTypes.TEXT,
-      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'bio_domain',
+    tableName: 'taxon',
     timestamps: false,
     indexes: [
       {
