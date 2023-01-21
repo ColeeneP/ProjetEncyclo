@@ -20,22 +20,19 @@ const decodedToken = require("../middleware/auth.js");
                 .catch((error) => {res.status(400).json({ message: error.message });})
             };
 
+/**
+ * Function to get a specific classification (bio section)
+ * @param {object} req 
+ * @param {new database line} res 
+ */
   exports.getOneClassification = (req, res) => {
     const id = Number(req.params.id);
-    Model.bio_kingdom.findOne({
-      attributes: ['id', 'name'],
+    Model.classification.findOne({
+      attributes: ['id', 'taxon', 'name', 'identification', 'refs'],
       where: {id: id},
-      include: [{
-        model: Model.bio_domain,
-        as: 'fk_id_domain_bio_domain',        
-        attributes: ['id', 'name', 'identification', 'refs']
-      }]})
-    .then((things) => {
-      console.log(things);
-      res.status(200).json(things);
     })
-    .catch((error) => {res.status(400).json({error: error});
-    });
+    .then((things) => {res.status(200).json(things)})
+    .catch((error) => {res.status(400).json({error: error.message})});
   };
 
 /**
